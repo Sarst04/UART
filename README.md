@@ -82,3 +82,7 @@ For a comprehensive guide, C macros, and complete bare-metal integration example
 ## Architecture Schematic
 
 ![UART Architecture Schematic](doc/schematic/UART.svg)
+
+![Transmitter Architecture Schematic](doc/schematic/UART-Transmitter.svg)
+
+![Receiver Architecture Schematic](doc/schematic/UART-Receiver.svg)
