@@ -32,7 +32,7 @@ module uartTransmitter (
 
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
-            shiftReg <= 11'b0;
+            shiftReg <= 11'b111_1111_1111;
         end else if (loadEnable) begin
             shiftReg <= {1'b1, parity, readData, 1'b0}; 
         end else if (shiftEnable) begin
