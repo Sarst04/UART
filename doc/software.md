@@ -156,6 +156,6 @@ void uart_clear_errors(void) {
     UART_STATUS_REG = status;
 }
 
-```c
+```
 
 
