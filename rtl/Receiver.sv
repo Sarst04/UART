@@ -38,15 +38,20 @@ module uartReceiver #(
     end
 
     // Sample counter
-    localparam int SAMPLE_WIDTH = $clog2(OVERSAMPLE);
+    localparam int SAMPLE_WIDTH = (OVERSAMPLE > 1) ? $clog2(OVERSAMPLE) : 1;
+    
+    localparam logic [SAMPLE_WIDTH-1:0] HALF_BIT_COUNT = SAMPLE_WIDTH'((OVERSAMPLE / 2) - 1);
+    localparam logic [SAMPLE_WIDTH-1:0] FULL_BIT_COUNT = SAMPLE_WIDTH'(OVERSAMPLE - 1);
+
     logic [SAMPLE_WIDTH-1:0] sampleCounter;
+
     logic clrSampleCounter;
     logic incSampleCounter;
     logic halfBitTick;
     logic fullBitTick;
 
-    assign halfBitTick = (sampleCounter == (OVERSAMPLE/2 - 1));
-    assign fullBitTick = (sampleCounter == (OVERSAMPLE - 1));
+    assign halfBitTick = (sampleCounter == HALF_BIT_COUNT);
+    assign fullBitTick = (sampleCounter == FULL_BIT_COUNT);
 
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
@@ -177,6 +182,7 @@ module uartReceiver #(
                 if (fastTick) begin
                     incSampleCounter = 1'b1;
                     if (halfBitTick) begin
+                        incSampleCounter = 1'b0;
                         clrSampleCounter = 1'b1;
                     end
                 end

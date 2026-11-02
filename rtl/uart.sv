@@ -146,8 +146,8 @@ module uart #(
 					dataOut 		= {24'b0, rxFifoReadData};
 					rxFifoReadEn	= !rxFifoEmpty;
 				end
-                ADDR_STATUS  	: dataOut = {24'b0, statusReg};
-                ADDR_CONTROL 	: dataOut = {24'b0, controlReg};
+                ADDR_STATUS  : dataOut = {28'b0, statusReg};
+                ADDR_CONTROL : dataOut = {28'b0, controlReg};
             endcase
         end
     end
